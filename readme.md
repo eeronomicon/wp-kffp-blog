@@ -1,6 +1,34 @@
-# KFFP Website
+# Freeform Portland KFFP-LP 90.3FM
 
-### By the Freeform Portland Website Committee
+#### A WordPress Site
+
+#### By _**Freeform Portland's Website Committee**_
+
+## Description
 
 
-Copyright 2017 Freeform Portland
+## Prerequisites
+
+All the basic prerequisites for running WordPress 4.7.x apply here.
+
+## Installation
+
+Clone the repo, import the database, and off you go!
+
+## Known Bugs
+
+We're slipping into WordPress bug list territory here.
+
+## Support and contact details
+
+Contact us at editor@freeformportland.org!
+
+## Technologies Used
+
+This site uses the following bits of Human ingenuity: WordPress, MySQL, CSS, jQuery, JavaScript, and of course PHP.
+
+### License
+
+Published under the MIT License.
+
+Copyright (c) 2017 **_Freeform Portland_**
