@@ -1,3 +1,6 @@
 # KFFP Website
 
-### By Freeform Portland Website Committee
+### By the Freeform Portland Website Committee
+
+
+Copyright 2017 Freeform Portland
