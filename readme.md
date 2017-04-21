@@ -18,7 +18,7 @@ Clone the repo, import the database, and off you go!
 
 ## Known Bugs
 
-We're slipping into WordPress bug list territory here.
+We're going into WordPress bug list territory here.
 
 ## Support and contact details
 
