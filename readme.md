@@ -6,7 +6,7 @@
 
 ## Description
 
-The website of Freeform Portland, a community radio station in Portland, Oregon.
+The website of Freeform Portland, a community radio station in Portland, Oregon. Now with a blog and an events calendar!
 
 ## Prerequisites
 
