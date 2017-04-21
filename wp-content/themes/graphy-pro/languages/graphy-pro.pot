@@ -1,0 +1,716 @@
+# Copyright (C) 2014-2016 Themegraphy
+msgid ""
+msgstr ""
+"Project-Id-Version: Graphy Pro\n"
+"Report-Msgid-Bugs-To: http://themegraphy.com/contact/\n"
+"POT-Creation-Date: 2016-11-29 23:01+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: 404.php:15
+msgid "That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:19
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr ""
+
+#: archive.php:33 home.php:28 index.php:30 search.php:28
+msgid "&laquo; Previous"
+msgstr ""
+
+#: archive.php:34 home.php:29 index.php:31 search.php:29
+msgid "Next &raquo;"
+msgstr ""
+
+#: comments.php:28 inc/template-tags.php:132
+msgid "1 Comment"
+msgstr ""
+
+#: comments.php:28 inc/template-tags.php:132
+msgid "% Comments"
+msgstr ""
+
+#: comments.php:34 comments.php:56
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:37 comments.php:59
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:38 comments.php:60
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:72
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:76
+msgid "Leave a Comment"
+msgstr ""
+
+#: content-grid.php:15 content-list.php:17 content-summary.php:11
+#: content.php:11
+msgid "Featured"
+msgstr ""
+
+#: content-none.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: content-none.php:19
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: content-none.php:23
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: content-none.php:28
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: content-page.php:20 content-single.php:22 content.php:24
+msgid "Pages:"
+msgstr ""
+
+#: content-single.php:27
+msgid ", "
+msgstr ""
+
+#: content-summary.php:24 inc/extras.php:20
+msgid "Continue reading &rarr;"
+msgstr ""
+
+#: footer.php:40
+#, php-format
+msgid "Powered by <a href=\"%1$s\">%2$s</a>"
+msgstr ""
+
+#: footer.php:40
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: footer.php:42
+#, php-format
+msgid "Theme: <a href=\"%1$s\">%2$s</a> by %3$s"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+#: footer.php:42
+msgid "http://themegraphy.com/wordpress-themes/graphy/"
+msgstr ""
+
+#: functions.php:61
+msgid "Main Navigation"
+msgstr ""
+
+#: functions.php:62
+msgid "Header Social Links"
+msgstr ""
+
+#: functions.php:63
+msgid "Footer Social Links"
+msgstr ""
+
+#: functions.php:64
+msgid "Footer Menu"
+msgstr ""
+
+#: functions.php:116
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:118
+msgid ""
+"This is the normal sidebar. If you do not use this sidebar or Sticky "
+"Sidebar, the page will be a one-column design."
+msgstr ""
+
+#: functions.php:125
+msgid "Sticky Sidebar"
+msgstr ""
+
+#: functions.php:127
+msgid "Displays while following the PC's scrolling."
+msgstr ""
+
+#: functions.php:135
+msgid "Footer 1"
+msgstr ""
+
+#: functions.php:137
+msgid ""
+"From left to right there are 4 sequential footer widget areas, and the width "
+"is auto-adjusted based on how many you use. If you do not use a footer "
+"widget, nothing will be displayed."
+msgstr ""
+
+#: functions.php:144
+msgid "Footer 2"
+msgstr ""
+
+#: functions.php:152
+msgid "Footer 3"
+msgstr ""
+
+#: functions.php:160
+msgid "Footer 4"
+msgstr ""
+
+#: functions.php:169
+msgid "Instagram Widget"
+msgstr ""
+
+#: functions.php:171
+msgid "The Instagram-exclusive widget area."
+msgstr ""
+
+#: functions.php:196
+msgctxt "Source Serif Pro font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:201
+msgctxt "Lora font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:206
+msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
+msgid "no-subset"
+msgstr ""
+
+#: functions.php:488
+msgid "Social Link 1"
+msgstr ""
+
+#: functions.php:489
+msgid "Social Link 2"
+msgstr ""
+
+#: functions.php:490
+msgid "Social Link 3"
+msgstr ""
+
+#: functions.php:491
+msgid "Social Link 4"
+msgstr ""
+
+#: functions.php:492
+msgid "Social Link 5"
+msgstr ""
+
+#: functions.php:493
+msgid "Social Link 6"
+msgstr ""
+
+#: functions.php:494
+msgid "Social Link 7"
+msgstr ""
+
+#: header.php:20
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:39
+msgid "Menu"
+msgstr ""
+
+#: inc/customizer.php:19
+msgid "Thank you for using the Graphy Pro theme."
+msgstr ""
+
+#: inc/customizer.php:20
+msgid "Documentation"
+msgstr ""
+
+#: inc/customizer.php:21
+msgid "For instructions on theme configuration, please see the documentation."
+msgstr ""
+
+#: inc/customizer.php:22
+msgid "http://themegraphy.com/documents/graphy/"
+msgstr ""
+
+#: inc/customizer.php:22
+msgid "Theme Documentation"
+msgstr ""
+
+#: inc/customizer.php:23 inc/customizer.php:25
+msgid "Support"
+msgstr ""
+
+#: inc/customizer.php:24
+msgid ""
+"If there is something you don't understand even after reading the "
+"documentation, please feel free to contact support."
+msgstr ""
+
+#: inc/customizer.php:25
+msgid "http://themegraphy.com/support/"
+msgstr ""
+
+#: inc/customizer.php:39
+msgid "Hide Tagline"
+msgstr ""
+
+#: inc/customizer.php:46
+msgid "READ ME"
+msgstr ""
+
+#: inc/customizer.php:60
+msgid "Fonts"
+msgstr ""
+
+#: inc/customizer.php:68
+msgid "Headings Font"
+msgstr ""
+
+#: inc/customizer.php:72 inc/customizer.php:107 inc/customizer.php:165
+msgid "Default"
+msgstr ""
+
+#: inc/customizer.php:93
+msgid "Headings Font Size (%)"
+msgstr ""
+
+#: inc/customizer.php:103
+msgid "Body Font"
+msgstr ""
+
+#: inc/customizer.php:124
+msgid "Body Font Size (px)"
+msgstr ""
+
+#: inc/customizer.php:137
+msgid "Link Color"
+msgstr ""
+
+#: inc/customizer.php:146
+msgid "Link Hover Color"
+msgstr ""
+
+#: inc/customizer.php:153
+msgid "Title"
+msgstr ""
+
+#: inc/customizer.php:161
+msgid "Font"
+msgstr ""
+
+#: inc/customizer.php:188
+msgid "Font Weight"
+msgstr ""
+
+#: inc/customizer.php:192 inc/customizer.php:745
+msgid "Bold"
+msgstr ""
+
+#: inc/customizer.php:193 inc/customizer.php:746
+msgid "Normal"
+msgstr ""
+
+#: inc/customizer.php:194 inc/customizer.php:747
+msgid "Light"
+msgstr ""
+
+#: inc/customizer.php:203
+msgid "Font Size (px)"
+msgstr ""
+
+#: inc/customizer.php:214
+msgid "Font Color"
+msgstr ""
+
+#: inc/customizer.php:224
+msgid "Letter Spacing (px)"
+msgstr ""
+
+#: inc/customizer.php:235 inc/customizer.php:314
+msgid "Margin Top (px)"
+msgstr ""
+
+#: inc/customizer.php:246 inc/customizer.php:325
+msgid "Margin Bottom (px)"
+msgstr ""
+
+#: inc/customizer.php:257
+msgid "All Uppercase"
+msgstr ""
+
+#: inc/customizer.php:265
+msgid "Logo"
+msgstr ""
+
+#: inc/customizer.php:266
+msgid ""
+"In order to use a retina logo image, you must have a version of your logo "
+"that is doubled in size."
+msgstr ""
+
+#: inc/customizer.php:274
+msgid "Upload Logo"
+msgstr ""
+
+#: inc/customizer.php:283
+msgid "Replace Title"
+msgstr ""
+
+#: inc/customizer.php:293
+msgid "Retina Ready"
+msgstr ""
+
+#: inc/customizer.php:303
+msgid "Add Border Radius"
+msgstr ""
+
+#: inc/customizer.php:337
+msgid "Header Image Display"
+msgstr ""
+
+#: inc/customizer.php:341 inc/customizer.php:414 inc/customizer.php:765
+#: inc/customizer.php:778
+msgid "Display on the blog posts index page"
+msgstr ""
+
+#: inc/customizer.php:342 inc/customizer.php:766
+msgid "Display on all static pages"
+msgstr ""
+
+#: inc/customizer.php:343 inc/customizer.php:416 inc/customizer.php:767
+#: inc/customizer.php:780
+msgid "Display on the whole site"
+msgstr ""
+
+#: inc/customizer.php:350 inc/widgets.php:99
+msgid "Featured Posts"
+msgstr ""
+
+#: inc/customizer.php:358
+msgid "Enable Featured Slider"
+msgstr ""
+
+#: inc/customizer.php:373
+msgid "Featured Category"
+msgstr ""
+
+#: inc/customizer.php:384
+msgid "Hide Featured Category"
+msgstr ""
+
+#: inc/customizer.php:385
+msgid ""
+"Check this box if you want hide the featured category from displaying in "
+"post meta."
+msgstr ""
+
+#: inc/customizer.php:395
+msgid "Number of Posts to Show (1 to 8)"
+msgstr ""
+
+#: inc/customizer.php:410
+msgid "Featured Slider Display"
+msgstr ""
+
+#: inc/customizer.php:415 inc/customizer.php:779
+msgid "Display on the static front page"
+msgstr ""
+
+#: inc/customizer.php:423
+msgid "Post Display"
+msgstr ""
+
+#: inc/customizer.php:431
+msgid "Post Display on Homepage"
+msgstr ""
+
+#: inc/customizer.php:435 inc/customizer.php:791
+msgid "Full Text"
+msgstr ""
+
+#: inc/customizer.php:436 inc/customizer.php:792
+msgid "Summary"
+msgstr ""
+
+#: inc/customizer.php:437 inc/customizer.php:793
+msgid "2 Column Masonry"
+msgstr ""
+
+#: inc/customizer.php:438 inc/customizer.php:794
+msgid "3 Column Masonry"
+msgstr ""
+
+#: inc/customizer.php:439 inc/customizer.php:795
+msgid "List"
+msgstr ""
+
+#: inc/customizer.php:448
+msgid "Hide Categories"
+msgstr ""
+
+#: inc/customizer.php:458
+msgid "Hide Date"
+msgstr ""
+
+#: inc/customizer.php:468
+msgid "Hide Author Name"
+msgstr ""
+
+#: inc/customizer.php:478
+msgid "Hide Comments Number"
+msgstr ""
+
+#: inc/customizer.php:488
+msgid "Hide Featured Image on Full Text"
+msgstr ""
+
+#: inc/customizer.php:498
+msgid "Hide Featured Image on Summary"
+msgstr ""
+
+#: inc/customizer.php:508
+msgid "Hide Featured Image on Masonry"
+msgstr ""
+
+#: inc/customizer.php:518
+msgid "Hide Featured Image on List"
+msgstr ""
+
+#: inc/customizer.php:528
+msgid "Hide Author Profile"
+msgstr ""
+
+#: inc/customizer.php:538
+msgid "Hide Older/Newer Post Navigation"
+msgstr ""
+
+#: inc/customizer.php:546
+msgid "Category Colors"
+msgstr ""
+
+#: inc/customizer.php:547
+msgid "If you set #ffffff, default color is used"
+msgstr ""
+
+#: inc/customizer.php:555
+msgid "Default Color"
+msgstr ""
+
+#: inc/customizer.php:571
+msgid "Footer"
+msgstr ""
+
+#: inc/customizer.php:572
+msgid "HTML tags are allowed in the footer text."
+msgstr ""
+
+#: inc/customizer.php:580
+msgid "Footer Text"
+msgstr ""
+
+#: inc/customizer.php:590
+msgid "Hide Credit"
+msgstr ""
+
+#: inc/customizer.php:598 inc/customizer.php:608
+msgid "Custom CSS"
+msgstr ""
+
+#: inc/customizer.php:599
+msgid ""
+"Set custom Google fonts like this: Open+Sans:300,300italic|Roboto:100,900"
+msgstr ""
+
+#: inc/customizer.php:618
+msgid "Custom Google Fonts"
+msgstr ""
+
+#: inc/customizer.php:630
+msgid "Hide Main Navigation"
+msgstr ""
+
+#: inc/customizer.php:640
+msgid "Hide Search on Main Navigation"
+msgstr ""
+
+#: inc/jetpack.php:48
+msgid "You might also like"
+msgstr ""
+
+#: inc/template-tags.php:109
+msgid "Posted"
+msgstr ""
+
+#: inc/template-tags.php:112
+msgid "on"
+msgstr ""
+
+#: inc/template-tags.php:121
+msgid "by"
+msgstr ""
+
+#: inc/template-tags.php:123
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: inc/template-tags.php:132
+msgid "0 Comment"
+msgstr ""
+
+#: inc/template-tags.php:196
+#, php-format
+msgid "View all posts by %s &rarr;"
+msgstr ""
+
+#: inc/template-tags.php:217
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:220
+msgid "Older post"
+msgstr ""
+
+#: inc/template-tags.php:220
+msgctxt "Previous post link"
+msgid "%title"
+msgstr ""
+
+#: inc/template-tags.php:221
+msgid "Newer post"
+msgstr ""
+
+#: inc/template-tags.php:221
+msgctxt "Next post link"
+msgid "%title"
+msgstr ""
+
+#: inc/widgets.php:15
+msgid "Displays recent posts with featured images."
+msgstr ""
+
+#: inc/widgets.php:16
+msgid "Graphy Recent Posts"
+msgstr ""
+
+#: inc/widgets.php:20
+msgid "Recent Posts"
+msgstr ""
+
+#: inc/widgets.php:74 inc/widgets.php:149 inc/widgets.php:245
+msgid "Title:"
+msgstr ""
+
+#: inc/widgets.php:77
+msgid "Number of posts to show:"
+msgstr ""
+
+#: inc/widgets.php:81
+msgid "Display post date?"
+msgstr ""
+
+#: inc/widgets.php:94
+msgid "Displays posts that are set as featured content."
+msgstr ""
+
+#: inc/widgets.php:95
+msgid "Graphy Featured Posts"
+msgstr ""
+
+#: inc/widgets.php:129
+msgid "There are no posts set in Featured Posts."
+msgstr ""
+
+#: inc/widgets.php:152
+msgid "Number of posts to show (maximum 6):"
+msgstr ""
+
+#: inc/widgets.php:167
+msgid "Displays a profile with a photo and social media links."
+msgstr ""
+
+#: inc/widgets.php:168
+msgid "Graphy Profile"
+msgstr ""
+
+#: inc/widgets.php:248
+msgid "Profile Image URL:"
+msgstr ""
+
+#: inc/widgets.php:251
+msgid "Name:"
+msgstr ""
+
+#: inc/widgets.php:256
+msgid "Social Link 1:"
+msgstr ""
+
+#: inc/widgets.php:258
+msgid "Social Link 2:"
+msgstr ""
+
+#: inc/widgets.php:260
+msgid "Social Link 3:"
+msgstr ""
+
+#: inc/widgets.php:262
+msgid "Social Link 4:"
+msgstr ""
+
+#: inc/widgets.php:264
+msgid "Social Link 5:"
+msgstr ""
+
+#: inc/widgets.php:266
+msgid "Social Link 6:"
+msgstr ""
+
+#: inc/widgets.php:268
+msgid "Social Link 7:"
+msgstr ""
+
+#: search.php:16
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Graphy Pro"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Graphy is a blog-oriented WordPress theme designed with great attention "
+"given to the beauty of the typography. Made using mobile-first responsive "
+"web design, even when your site is viewed on a smartphone or tablet there "
+"will be no negative impact on the beautiful typography."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Themegraphy"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://themegraphy.com/"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "No Sidebar"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Full Width"
+msgstr ""

@@ -1,0 +1,32 @@
+# BEGIN stream redirect
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+Options +FollowSymLinks
+RewriteRule ^listen$ http://74.63.72.20:8950/live [L]
+
+RewriteRule ^listen2$ /stream-load-balancer.php [P]
+
+RewriteRule ^apply$ https://docs.google.com/forms/d/e/1FAIpQLSfw_PiWa1IXdUZN0wHUGq9JHysHWJrEE4u-6Y-7kw0CdvbcLw/viewform [L,R=301]
+
+RewriteRule ^eval$ https://docs.google.com/forms/d/1FjuV4o3piQHcSZ1gxnkoPTIlrYytG_2pGY5Fwty1TDE/viewform [L,R=301]
+
+</IfModule>
+# END stream redirect
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# old site redirects
+Redirect 301 /about.html http://www.freeformportland.org/about/
+Redirect 301 /faq.html http://www.freeformportland.org/about/faq/
+Redirect 301 /music.html http://www.freeformportland.org/about/
