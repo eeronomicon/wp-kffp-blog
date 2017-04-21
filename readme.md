@@ -8,6 +8,8 @@
 
 The website of Freeform Portland, a community radio station in Portland, Oregon. Now with a blog and an events calendar.
 
+https://www.freeformportland.org
+
 ## Prerequisites
 
 All the basic prerequisites for running WordPress 4.7.x apply here.
