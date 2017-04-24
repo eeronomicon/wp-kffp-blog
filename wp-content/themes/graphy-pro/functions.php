@@ -128,10 +128,10 @@ function get_timeslot($id, $fancy = false) {
   if ($endHour === '0') $endHour = 24;
 
   if ( strlen($dayInt) ) {
-    $output .= display_day_of_week($dayInt, $fancy) . ' ';
+    $output .= display_day_of_week($dayInt, true) . ' ';
 
     $output .= convert_to_twelve($startHour);
-    $output .= ' - ';
+    $output .= '-';
     $output .= convert_to_twelve($endHour);
   }
 
@@ -142,13 +142,13 @@ function convert_to_twelve($hour) {
    $output = '';
    
    if ($hour == 0 ) {
-        $output = '12:00 AM';
+        $output = 'Midnight';
     } elseif ($hour < 12) {
-        $output = $hour . ':00 AM';
+        $output = $hour . 'AM';
     } elseif ($hour == 12) {
-        $output = '12:00 PM';
+        $output = 'Noon';
     } else {
-        $output = ($hour - 12) . ':00 PM';
+        $output = ($hour - 12) . 'PM';
     }
     
     return $output;
