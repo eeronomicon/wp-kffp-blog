@@ -36,7 +36,7 @@ if( $my_query->have_posts() ) {
       "timeSlot" => get_timeslot($post->ID, $fancy = false),
       "showName" => get_the_title(),
       "showID" => get_post_meta($post->ID, 'id', true),
-      "email" => get_post_meta($post->ID, 'dj_email', false),
+      "email" => get_post_meta($post->ID, 'dj_email', true),
       "firstName" => "",
       "lastName" => "",
       "djName" => get_post_meta($post->ID, 'dj_name', true),
