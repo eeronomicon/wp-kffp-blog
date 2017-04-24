@@ -19,7 +19,9 @@ $args=array(
   'post_type' => $type,
   'post_status' => 'publish',
   'posts_per_page' => -1,
-  'caller_get_posts'=> 1
+  'caller_get_posts'=> 1,
+  'meta_key'     => 'id',
+	'meta_compare' => 'EXISTS'
 );
 
 $allShows = array();
