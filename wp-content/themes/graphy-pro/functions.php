@@ -1,5 +1,5 @@
 <?php
-wp_register_script('freeform', get_stylesheet_directory_uri() . '/js/freeform.js', array('jquery', 'mb.miniAudioPlayer'));
+wp_register_script('freeform', get_stylesheet_directory_uri() . '/js/freeform.js', array('jquery'));
 wp_enqueue_script('freeform');
 
 /**

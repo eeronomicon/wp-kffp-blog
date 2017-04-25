@@ -1,8 +1,8 @@
+/*
 (function($) {
   $('.listen-cta').mb_miniPlayer();
 })(jQuery);
 
-/*
 $(function() {
   var $streamCTA = $('.listen-cta'),
     streamURL = $streamCTA.attr('href'),
