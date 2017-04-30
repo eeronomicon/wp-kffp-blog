@@ -204,6 +204,26 @@ function remove_admin_bar_stuff( $wp_admin_bar ) {
 }
 
 
+// setup URL parsing for show slugs
+
+function add_query_vars($aVars) {
+	$aVars[] = "show_name";
+	return $aVars;
+}
+ 
+// hook add_query_vars function into query_vars
+add_filter('query_vars', 'add_query_vars');
+
+function add_rewrite_rules($aRules) {
+	$aNewRules = array('shows/([^/]+)/?$' => 'index.php?pagename=program&show_name=$matches[1]'
+	);
+	$aRules = $aNewRules + $aRules;
+	return $aRules;
+}
+ 
+// hook add_rewrite_rules function into rewrite_rules_array
+add_filter('rewrite_rules_array', 'add_rewrite_rules');
+
 
 /**
  * END KFFP
