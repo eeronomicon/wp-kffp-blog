@@ -125,7 +125,6 @@ function get_timeslot($id, $fancy = false) {
   $dayInt = $custom_fields['start_day'][0];
   $startHour = $custom_fields['start_hour'][0];
   $endHour = $custom_fields['end_hour'][0];
-  if ($endHour === '0') $endHour = 24;
 
   if ( strlen($dayInt) ) {
     $output .= display_day_of_week($dayInt, true) . ' ';
