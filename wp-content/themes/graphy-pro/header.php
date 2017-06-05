@@ -26,7 +26,7 @@
 
 		<div class="site-branding">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'name' ); ?>" src="<?php bloginfo('stylesheet_directory'); ?>/images/freeform-portland.svg" /></a>
-			<a class="donate-desktop visible-lg visible-md visible-sm" href="/donate/"><i class="fa fa-heart" aria-hidden="true"></i> Donate</a>
+			<a class="donate-desktop visible-lg visible-md visible-sm" href="/donor-drive"><i class="fa fa-heart" aria-hidden="true"></i> Donate</a>
 		<?php /*graphy_logo();*/ ?>
 		<!--<?php graphy_site_title(); ?>
 		<?php if ( ! get_theme_mod( 'graphy_hide_blogdescription' ) ) : ?>
