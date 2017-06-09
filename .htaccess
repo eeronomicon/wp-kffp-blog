@@ -2,7 +2,7 @@
 RewriteEngine On
 RewriteBase /
 Options +FollowSymLinks
-RewriteRule ^listen$ http://74.63.72.20:8950/live [L]
+RewriteRule ^listen$ http://104.236.186.233:8000/stream [L]
 
 RewriteRule ^apply$ https://docs.google.com/forms/d/e/1FAIpQLSfw_PiWa1IXdUZN0wHUGq9JHysHWJrEE4u-6Y-7kw0CdvbcLw/viewform [L,R=301]
 
