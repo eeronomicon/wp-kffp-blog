@@ -153,6 +153,18 @@ function convert_to_twelve($hour) {
     return $output;
 }
 
+// Concatenate multiple DJs for show list
+
+function show_all_djs($djs) {
+	$output = [];
+	foreach($djs as $dj) {
+		if ($dj['displayName']) {
+			array_push($output, $dj['displayName']);
+		}
+	}
+	return implode(' & ', $output);
+}
+
 // redirect logins to Schedule page
 
 function redirect_to_schedule() {
