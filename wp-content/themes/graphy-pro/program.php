@@ -26,16 +26,13 @@ get_header();
   
       $data = json_decode( $body, true );
       
+      if ( (array)$data['show'] ) {
+      
 		?>
 		
 	  <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
       <header class="entry-header">
         <h1 class="entry-title"><?php echo $data['show']['showName']; ?></h1>
-    
-        <?php graphy_entry_meta(); ?>
-        <?php if ( has_post_thumbnail() ): ?>
-        <div class="post-thumbnail"><?php the_post_thumbnail(); ?></div>
-        <?php endif; ?>
       </header><!-- .entry-header -->
     
       <div class="entry-content">
@@ -53,30 +50,34 @@ get_header();
 	</div><!-- #primary -->
 
 <?php
-$playlists = $data['playlists'];
-?>
-
-
-<ul class="playlist-list">
-
-  <?php   foreach($playlists as $playlist){
-    $playlistDate = date_create($playlist['playlistDate']);
-    echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
-    echo '<ul class="playlist-songs">';
-    foreach($playlist['songs'] as $song) {
-      echo '<li>';
-      echo '<span class="song-artist">' . ($song['artist'] ? $song['artist'] : '' ) . '</span>';
-      echo '<span class="song-title">' . ($song['title'] ? ' "' . $song['title'] . '"' : '') . '</span>';
-      echo '<span class="song-album">' . ($song['album'] ? ' (' . $song['album'] . ')' : '') . '</span>';
-      #echo '<span class="song-label">' .  ($song['label'] ? ' [' . $song['label'] . ']' : '') . '</span>';
+  $playlists = $data['playlists'];
+  if ( count($playlists) > 0 ) {
+    echo '<ul class="playlist-list">';
+    foreach($playlists as $playlist){
+      $playlistDate = date_create($playlist['playlistDate']);
+      echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
+      echo '<ul class="playlist-songs">';
+      foreach($playlist['songs'] as $song) {
+        echo '<li>';
+        echo '<span class="song-artist">' . ($song['artist'] ? $song['artist'] : '' ) . '</span>';
+        echo '<span class="song-title">' . ($song['title'] ? ' "' . $song['title'] . '"' : '') . '</span>';
+        echo '<span class="song-album">' . ($song['album'] ? ' (' . $song['album'] . ')' : '') . '</span>';
+        #echo '<span class="song-label">' .  ($song['label'] ? ' [' . $song['label'] . ']' : '') . '</span>';
+        echo '</li>';
+      }
+      echo '</ul>';
       echo '</li>';
     }
     echo '</ul>';
-    echo '</li>';
+  } else {
+    echo '<ul class="playlist-list"><li><h3>No Playlists Found!</h3></li></ul>';
+  }
+} else {
+    echo '<article><div class="entry-content"><header class="entry-header">
+        <h1 class="entry-title">Whoops, something is awry!</h1></header><div class="entry-content"><h3>We are not able to locate this show.</h3></div></div></article></main></div>';
+  }
+?>
 
-  } ?>
-
-</ul>
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
