@@ -64,7 +64,7 @@ get_header(); ?>
         <li class="hour-<?= $hour ?>">
         <?php } ?>
 
-          <a href="/program/<?php echo $show['slug'] ?>">
+          <a href="/program/?show_name=<?php echo $show['slug'] ?>">
           <?= convert_to_twelve($hour) ?> -
           <?php echo $show['showName'] . ' w/ ' . show_all_djs($show['users']); ?>
           </a>
