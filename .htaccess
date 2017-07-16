@@ -8,8 +8,6 @@ RewriteRule ^apply$ https://docs.google.com/forms/d/e/1FAIpQLSfw_PiWa1IXdUZN0wHU
 
 RewriteRule ^eval$ https://goo.gl/forms/unpzdJuq77bfZTrd2 [L,R=301]
 
-RewriteRule ^program/([_A-Za-z0-9-]+)/?$ program/?show_name=$1 [NC,L,R=301]
-
 </IfModule>
 
 # BEGIN WordPress
