@@ -4,7 +4,7 @@ RewriteBase /
 Options +FollowSymLinks
 RewriteRule ^listen$ http://104.236.186.233:8000/stream [L]
 
-RewriteRule ^apply$ https://docs.google.com/forms/d/e/1FAIpQLSfw_PiWa1IXdUZN0wHUGq9JHysHWJrEE4u-6Y-7kw0CdvbcLw/viewform [L,R=301]
+RewriteRule ^apply$ https://goo.gl/forms/TvHA1CFPcLcZ2szY2 [L,R=301]
 
 RewriteRule ^eval$ https://goo.gl/forms/unpzdJuq77bfZTrd2 [L,R=301]
 
