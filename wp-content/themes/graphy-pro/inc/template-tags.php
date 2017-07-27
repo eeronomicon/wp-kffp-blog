@@ -120,7 +120,11 @@ function graphy_entry_meta() {
 		<?php if ( ! get_theme_mod( 'graphy_hide_author' ) ) : ?>
 			<span class="byline"><?php esc_html_e( 'by', 'graphy-pro' ); ?>
 				<span class="author vcard">
-					<a class="url fn n" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" title="<?php printf( esc_html__( 'View all posts by %s', 'graphy-pro' ), get_the_author() );?>"><span class="author-name"><?php echo get_the_author();?></span></a>
+					<?php if ( get_post_meta(get_the_ID(), 'blog_author', true) ) : ?>
+						<?php echo get_post_meta(get_the_ID(), 'blog_author', true); ?>
+					<?php else: ?>
+						<a class="url fn n" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" title="<?php printf( esc_html__( 'View all posts by %s', 'graphy-pro' ), get_the_author() );?>"><span class="author-name"><?php echo get_the_author();?></span></a>
+					<?php endif; ?>
 				</span>
 			</span>
 		<?php endif; ?>
@@ -158,7 +162,7 @@ if ( ! function_exists( 'graphy_author_profile' ) ) :
  * Display author profile when applicable.
  */
 function graphy_author_profile() {
-	if ( get_post_format() || get_theme_mod( 'graphy_hide_author_profile' ) ) {
+	if ( get_post_format() || get_theme_mod( 'graphy_hide_author_profile' ) || get_post_meta(get_the_ID(), 'blog_author', true) ) {
 		return;
 	}
 	?>
