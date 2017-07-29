@@ -166,26 +166,25 @@ function show_all_djs($djs) {
 }
 
 // redirect logins to Schedule page
-
+/*
 function redirect_to_schedule() {
 	wp_redirect("http://www.freeformportland.org/schedule");
 	exit();
 }
 add_action('wp_login', 'redirect_to_schedule');
+*/
 
 /**
  * KFFP - Clean up admin UI
  */
 
-// hide menus for the donkeys (contributors)
-add_action( 'admin_menu', 'remove_menus_for_donkeys' );
-function remove_menus_for_donkeys() {
+// hide menus for contributors
+add_action( 'admin_menu', 'remove_menus_for_contributors' );
+function remove_menus_for_contributors() {
   if (current_user_can('contributor')) {
     remove_menu_page('edit-comments.php');
     remove_menu_page('profile.php');
     remove_menu_page('tools.php');
-
-
   }
 }
 
@@ -196,7 +195,6 @@ function remove_dashboard_widgets() {
   remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
   remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
   remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
-
   if (current_user_can('contributor')) {
     remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
     remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
@@ -208,12 +206,10 @@ add_action( 'admin_bar_menu', 'remove_admin_bar_stuff', 999 );
 function remove_admin_bar_stuff( $wp_admin_bar ) {
   $wp_admin_bar->remove_node( 'wp-logo' );
   $wp_admin_bar->remove_node( 'wpseo-menu' );
-
   if ( current_user_can('contributor') ) {
     $wp_admin_bar->remove_node( 'comments' );
   }
 }
-
 
 // setup URL parsing for show slugs
 function add_query_vars($aVars) {
