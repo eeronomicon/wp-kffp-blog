@@ -16,7 +16,7 @@ get_header();
         $showName = urldecode($wp_query->query_vars['show_name']);
       }
 
-      $request = wp_remote_get( 'http://admin.freeformportland.org/api/v1/playlists/' . $showName);
+      $request = wp_remote_get( 'http://admin.freeformportland.org/api/v1/playlists/' . $showName . '?order=asc');
 
       if( is_wp_error( $request ) ) {
       	return false;
@@ -54,7 +54,7 @@ get_header();
   if ( count($playlists) > 0 ) {
     echo '<ul class="playlist-list">';
     foreach($playlists as $playlist){
-      $playlistDate = date_create($playlist['playlistDate']);
+      $playlistDate = date_create($playlist['playlistDate'])->setTimezone(new DateTimeZone('America/Los_Angeles'));
       echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
       echo '<ul class="playlist-songs">';
       foreach($playlist['songs'] as $song) {
