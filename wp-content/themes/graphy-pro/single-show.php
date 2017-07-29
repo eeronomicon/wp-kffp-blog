@@ -79,7 +79,7 @@ $data = json_decode( $body, true );
         echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
         echo '<ul class="playlist-songs">';
         foreach(  array_reverse($episode['songs']) as $song) {
-          if ( $song['inputs'][1]['value'] != 'freeformportland.org') {
+          if ( $song['played'] && $song['inputs'][1]['value'] != 'freeformportland.org') {
             echo '<li>';
             echo '<span class="song-timestamp" style="display: none;">' . $song['playedAt'] . '</span>';
             echo '<span class="song-artist">' . ($song['inputs'][1]['value'] ? $song['inputs'][1]['value'] : '' ) . '</span>';
