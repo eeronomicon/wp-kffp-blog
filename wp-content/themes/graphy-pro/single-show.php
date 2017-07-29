@@ -78,7 +78,7 @@ $data = json_decode( $body, true );
         $playlistDate = date_create($episode['createdAt'])->setTimezone(new DateTimeZone('America/Los_Angeles'));
         echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
         echo '<ul class="playlist-songs">';
-        foreach($episode['songs'] as $song) {
+        foreach(  array_reverse($episode['songs']) as $song) {
           if ( $song['inputs'][1]['value'] != 'freeformportland.org') {
             echo '<li>';
             echo '<span class="song-timestamp" style="display: none;">' . $song['playedAt'] . '</span>';
