@@ -926,7 +926,7 @@ default:
 	</p>
 </form>
 
-<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;">Heads up!<br />Playlist App 2.0 incoming!<br /><a href="/kffp-admin">Click here for more info!</a></h3>
+<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;"><img src="/wp-content/themes/graphy-pro/images/admin-app-omg.gif" style="width: 100px;"><br />Heads up!<br />Playlist App 2.0 incoming!<br /><a href="/kffp-admin">Click here for more info!</a></h3>
 
 <?php if ( ! $interim_login ) { ?>
 <p id="nav">
