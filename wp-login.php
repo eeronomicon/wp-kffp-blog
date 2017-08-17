@@ -100,7 +100,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		$login_header_url   = network_home_url();
 		$login_header_title = get_network()->site_name;
 	} else {
-		$login_header_url   = __( 'https://wordpress.org/' );
+		$login_header_url   = __( 'https://www.freeformportland.org/' );
 		$login_header_title = __( 'Powered by WordPress' );
 	}
 
@@ -158,7 +158,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	do_action( 'login_header' );
 	?>
 	<div id="login">
-		<h1><a href="<?php echo esc_url( $login_header_url ); ?>" title="<?php echo esc_attr( $login_header_title ); ?>" tabindex="-1"><?php bloginfo( 'name' ); ?></a></h1>
+		<h2><a href="<?php echo esc_url( $login_header_url ); ?>"><img src="/wp-content/themes/graphy-pro/images/freeform-portland.svg" alt="Freeform Portland" style="width: 320px"></a></h2>
 	<?php
 
 	unset( $login_header_url, $login_header_title );
@@ -925,6 +925,8 @@ default:
 		<input type="hidden" name="testcookie" value="1" />
 	</p>
 </form>
+
+<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;">Heads up!<br />Playlist App 2.0 incoming!<br /><a href="/kffp-admin">Click here for more info!</a></h3>
 
 <?php if ( ! $interim_login ) { ?>
 <p id="nav">
