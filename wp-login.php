@@ -894,6 +894,8 @@ default:
 	}
 ?>
 
+<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;"><a href="http://admin.freeformportland.org"><img src="/wp-content/themes/graphy-pro/images/ClickThis.jpg" alt="Don't click that!"><br />Playlist App 2.0 is Here!<br />Click here to use it!</a></h3>
+
 <form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
 	<p>
 		<label for="user_login"><?php _e( 'Username or Email Address' ); ?><br />
@@ -926,7 +928,6 @@ default:
 	</p>
 </form>
 
-<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;">Heads up!<br />Playlist App 2.0 incoming!<br /><a href="/kffp-admin">Click here for more info!</a></h3>
 
 <?php if ( ! $interim_login ) { ?>
 <p id="nav">
