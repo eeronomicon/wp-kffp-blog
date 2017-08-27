@@ -58,18 +58,6 @@ $data = json_decode( $body, true );
 
 ?>
 
-<? // if dj is logged in, show the show id and a link to create a playlist ?>
-<?php if (is_user_logged_in ()) {
-?>
-<div class="dj-login-wrapper">
-<div class="dj-login">
-<p class="show-id">KFFP ID: <?= $showID ?></p>
-<a href='http://kffp.rocks/api/newSetlist/<?= $showID ?>' target='_blank'>Make New Playlist</a>
-</div>
-</div>
-
-<?php } ?>
-
 <?php
   echo '<ul class="playlist-list">';
   if ( count($data) > 0 ) {
