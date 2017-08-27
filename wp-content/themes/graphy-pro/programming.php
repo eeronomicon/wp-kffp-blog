@@ -19,7 +19,7 @@ get_header(); ?>
     $today = new DateTime();
     $today_pacific = $today->setTimezone(new DateTimeZone('America/Los_Angeles'))->format('l');
     
-    $request = wp_remote_get( 'http://admin.freeformportland.org/api/v1/shows?startWeek=' . strtolower($today_pacific) );
+    $request = wp_remote_get( 'http://admin.freeformportland.org/api/v1/shows?isActive=true&startWeek=' . strtolower($today_pacific) );
 
     if( is_wp_error( $request ) ) {
       echo '<h1>Whoops, something is not working correctly! Hold on, we are looking into it!</h1>';

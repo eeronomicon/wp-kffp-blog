@@ -221,7 +221,7 @@ add_filter('query_vars', 'add_query_vars');
 // Add rewrite rule to shorten show URLs a bit
 function custom_rewrite_show_links() {
   add_rewrite_rule('^program/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
-  add_rewrite_rule('^show/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
+#  add_rewrite_rule('^show/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
 }
 add_action('init', 'custom_rewrite_show_links');
 
