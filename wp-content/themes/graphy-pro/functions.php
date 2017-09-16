@@ -13,7 +13,7 @@ function create_show_post_type() {
       'capabilities' => array(
         'create_posts' => true,
       ),
-      'has_archive' => 'schedule',
+      'has_archive' => 'old_schedule',
       'labels' => array(
         'name' => __( 'Shows' ),
         'singular_name' => __( 'Show' ),
@@ -221,7 +221,8 @@ add_filter('query_vars', 'add_query_vars');
 // Add rewrite rule to shorten show URLs a bit
 function custom_rewrite_show_links() {
   add_rewrite_rule('^program/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
-#  add_rewrite_rule('^show/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
+  add_rewrite_rule('^schedule/?', 'index.php?pagename=programs', 'top');
+  add_rewrite_rule('^show/([^/]*)/?', 'index.php?pagename=program&show_name=$matches[1]', 'top');
 }
 add_action('init', 'custom_rewrite_show_links');
 
