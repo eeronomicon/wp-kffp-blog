@@ -61,7 +61,7 @@ get_header();
         echo '<li>';
         echo '<span class="song-artist">' . ($song['artist'] ? $song['artist'] : '' ) . '</span>';
         echo '<span class="song-title">' . ($song['title'] ? ' "' . $song['title'] . '"' : '') . '</span>';
-        echo '<span class="song-album">' . ($song['album'] ? ' (' . $song['album'] . ')' : '') . '</span>';
+        echo '<span class="song-album">' . ($song['album'] ? ' [' . $song['album'] . ']' : '') . '</span>';
         #echo '<span class="song-label">' .  ($song['label'] ? ' [' . $song['label'] . ']' : '') . '</span>';
         echo '</li>';
       }
