@@ -100,7 +100,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		$login_header_url   = network_home_url();
 		$login_header_title = get_network()->site_name;
 	} else {
-		$login_header_url   = __( 'https://www.freeformportland.org/' );
+		$login_header_url   = __( 'https://wordpress.org/' );
 		$login_header_title = __( 'Powered by WordPress' );
 	}
 
@@ -158,7 +158,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	do_action( 'login_header' );
 	?>
 	<div id="login">
-		<h2><a href="<?php echo esc_url( $login_header_url ); ?>"><img src="/wp-content/themes/graphy-pro/images/freeform-portland.svg" alt="Freeform Portland" style="width: 320px"></a></h2>
+		<h1><a href="<?php echo esc_url( $login_header_url ); ?>" title="<?php echo esc_attr( $login_header_title ); ?>" tabindex="-1"><?php bloginfo( 'name' ); ?></a></h1>
 	<?php
 
 	unset( $login_header_url, $login_header_title );
@@ -359,6 +359,8 @@ function retrieve_password() {
 	/**
 	 * Filters the message body of the password reset mail.
 	 *
+	 * If the filtered message is empty, the password reset email will not be sent.
+	 *
 	 * @since 2.8.0
 	 * @since 4.1.0 Added `$user_login` and `$user_data` parameters.
 	 *
@@ -436,6 +438,7 @@ case 'postpass' :
 		exit();
 	}
 
+	require_once ABSPATH . WPINC . '/class-phpass.php';
 	$hasher = new PasswordHash( 8, true );
 
 	/**
@@ -697,7 +700,7 @@ case 'register' :
 	$user_email = '';
 	if ( $http_post ) {
 		$user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : '';
-		$user_email = isset( $_POST['user_email'] ) ? $_POST['user_email'] : '';
+		$user_email = isset( $_POST['user_email'] ) ? wp_unslash( $_POST['user_email'] ) : '';
 		$errors = register_new_user($user_login, $user_email);
 		if ( !is_wp_error($errors) ) {
 			$redirect_to = !empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'wp-login.php?checkemail=registered';
@@ -894,8 +897,6 @@ default:
 	}
 ?>
 
-<h3 style="color: red; text-align: center; margin-top: 20px; font-size: 2em; line-height: 1.3em;"><a href="http://admin.freeformportland.org"><img src="/wp-content/themes/graphy-pro/images/ClickThis.jpg" alt="Don't click that!"><br />Playlist App 2.0 is Here!<br />Click here to use it!</a></h3>
-
 <form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
 	<p>
 		<label for="user_login"><?php _e( 'Username or Email Address' ); ?><br />
@@ -927,7 +928,6 @@ default:
 		<input type="hidden" name="testcookie" value="1" />
 	</p>
 </form>
-
 
 <?php if ( ! $interim_login ) { ?>
 <p id="nav">
@@ -964,7 +964,14 @@ d.select();
 }, 200);
 }
 
-<?php if ( !$error ) { ?>
+/**
+ * Filters whether to print the call to `wp_attempt_focus()` on the login screen.
+ *
+ * @since 4.8.0
+ *
+ * @param bool $print Whether to print the function call. Default true.
+ */
+<?php if ( apply_filters( 'enable_login_autofocus', true ) && ! $error ) { ?>
 wp_attempt_focus();
 <?php } ?>
 if(typeof wpOnload=='function')wpOnload();
