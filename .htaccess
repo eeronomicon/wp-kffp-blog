@@ -6,7 +6,8 @@ Options +FollowSymLinks
 RewriteRule ^listen$ http://104.236.186.233:8000/stream [L]
 RewriteRule ^issues$ https://goo.gl/forms/zizHFw0af8eSvBvA3 [L,R=301]
 RewriteRule ^apply$ https://goo.gl/forms/TvHA1CFPcLcZ2szY2 [L,R=301]
-RewriteRule ^eval$ https://goo.gl/forms/unpzdJuq77bfZTrd2 [L,R=301]
+RewriteRule ^eval$ https://docs.google.com/forms/d/1m9FzDbTho554dLJXMITu6C20lbAykZrPuhc4PY_gc5o/edit [L,R=301]
+RewriteRule ^wiki$ https://drive.google.com/open?id=0B3EBBDCvNOgkQTA4bmVqNnBqaE0 [L,R=301]
 RewriteRule ^carts$ https://docs.google.com/forms/d/e/1FAIpQLSeVZXpsqYx5JjE_xv4_Y5M_57eNN_mh_MqoX6a2M39IxBMiJQ/viewform [L,R=301]
 
 </IfModule>
