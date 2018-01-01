@@ -9,38 +9,38 @@ get_header();
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
-		
+
 		<?php
-		
+
       if(isset($wp_query->query_vars['show_name'])) {
         $showName = urldecode($wp_query->query_vars['show_name']);
       }
 
-      $request = wp_remote_get( 'http://admin.freeformportland.org/api/v1/playlists/' . $showName . '?order=asc');
+      $request = wp_remote_get( 'https://admin.freeformportland.org/api/v1/playlists/' . $showName . '?order=asc');
 
       if( is_wp_error( $request ) ) {
       	return false;
       }
-      
+
       $body = wp_remote_retrieve_body( $request );
-  
+
       $data = json_decode( $body, true );
-      
+
       if ( (array)$data['show'] ) {
-      
+
 		?>
-		
+
 	  <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
       <header class="entry-header">
         <h1 class="entry-title"><?php echo $data['show']['showName']; ?></h1>
       </header><!-- .entry-header -->
-    
+
       <div class="entry-content">
-        
+
         <h3 class="dj-name"><?php echo implode(" & ", $data['show']['users']); ?></h3>
-    
+
         <h3 class="timeslot"><?php echo $data['show']['dayOfWeek'] . ' ' .  convert_to_twelve($data['show']['startTime']) . '-' . convert_to_twelve($data['show']['endTime']); ?></h3>
-    
+
         <?php echo $data['show']['description']; ?>
       </div><!-- .entry-content -->
       <?php graphy_footer_meta(); ?>
@@ -56,6 +56,12 @@ get_header();
     foreach($playlists as $playlist){
       $playlistDate = date_create($playlist['playlistDate'])->setTimezone(new DateTimeZone('America/Los_Angeles'));
       echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
+			if ( isset($playlist['playlistTitle']) ) {
+				echo '<p><strong>' . $playlist['playlistTitle'] . '</strong></p>';
+			}
+      if ( $playlist['isSub'] !== false && isset($playlist['djName']) ) {
+				echo '<p><em>Substitute DJ: ' . $playlist['djName'] . '</em></p>';
+			};
       echo '<ul class="playlist-songs">';
       foreach($playlist['songs'] as $song) {
         echo '<li>';
