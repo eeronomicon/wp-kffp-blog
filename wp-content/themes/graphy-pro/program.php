@@ -57,7 +57,7 @@ get_header();
       $playlistDate = date_create($playlist['playlistDate'])->setTimezone(new DateTimeZone('America/Los_Angeles'));
       echo '<li><h3>' . date_format($playlistDate, "F d, Y") . '</h3>';
 			if ( isset($playlist['playlistTitle']) ) {
-				echo '<p><strong>' . $playlist['playlistTitle'] . '</strong></p>';
+				echo '<p><strong>' . wp_strip_all_tags($playlist['playlistTitle']) . '</strong></p>';
 			}
       if ( $playlist['isSub'] !== false && isset($playlist['djName']) ) {
 				echo '<p><em>Substitute DJ: ' . $playlist['djName'] . '</em></p>';
