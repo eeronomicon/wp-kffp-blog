@@ -41,7 +41,7 @@
 
 		<?php if ( ! get_theme_mod( 'graphy_hide_navigation' ) ) : ?>
 		<nav id="site-navigation" class="main-navigation">
-			<a href="http://104.236.186.233:8000/stream" target="_new" class="listen-cta"><i class="fa fa-play-circle fa-2x" aria-hidden="true"></i> Listen Now</a>
+			<a href="http://listen.freeformportland.org:8000/stream" target="_new" class="listen-cta"><i class="fa fa-play-circle fa-2x" aria-hidden="true"></i> Listen Now</a>
 			<button class="menu-toggle"><span class="menu-text"><?php esc_html_e( 'Menu', 'graphy-pro' ); ?></span></button>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 			<?php if ( ! get_theme_mod( 'graphy_hide_search' ) ) : ?>

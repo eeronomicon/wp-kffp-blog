@@ -3,7 +3,7 @@ RewriteEngine On
 RewriteBase /
 Options +FollowSymLinks
 
-RewriteRule ^listen$ http://104.236.186.233:8000/stream [L]
+RewriteRule ^listen$ http://listen.freeformportland.org:8000/stream [L]
 RewriteRule ^issues$ https://goo.gl/forms/zizHFw0af8eSvBvA3 [L,R=301]
 RewriteRule ^apply$ https://goo.gl/forms/EzuvePR005fJ6gDO2 [L,R=301]
 RewriteRule ^eval$ https://docs.google.com/forms/d/1m9FzDbTho554dLJXMITu6C20lbAykZrPuhc4PY_gc5o/edit [L,R=301]
