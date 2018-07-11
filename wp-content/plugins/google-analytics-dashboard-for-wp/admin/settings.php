@@ -1,8 +1,8 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
- * Copyright 2013 Alin Marcu
+ * Author: ExactMetrics team
+ * Author URI: https://exactmetrics.com
+ * Copyright 2018 ExactMetrics team
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -36,6 +36,8 @@ final class GADWP_Settings {
 				$options['ga_force_ssl'] = 0;
 				$options['ga_pagescrolldepth_tracking'] = 0;
 				$options['tm_pagescrolldepth_tracking'] = 0;
+				$options['tm_optout'] = 0;
+				$options['tm_dnt_optout'] = 0;
 				$options['amp_tracking_analytics'] = 0;
 				$options['amp_tracking_clientidapi'] = 0;
 				$options['amp_tracking_tagmanager'] = 0;
@@ -43,6 +45,7 @@ final class GADWP_Settings {
 				$options['optimize_tracking'] = 0;
 				$options['trackingcode_infooter'] = 0;
 				$options['trackingevents_infooter'] = 0;
+				$options['ga_with_gtag'] = 0;
 				if ( isset( $_POST['options']['ga_tracking_code'] ) ) {
 					$new_options['ga_tracking_code'] = trim( $new_options['ga_tracking_code'], "\t" );
 				}
@@ -57,6 +60,9 @@ final class GADWP_Settings {
 				if ( empty( $new_options['access_back'] ) ) {
 					$new_options['access_back'][] = 'administrator';
 				}
+				if ( ! is_multisite() ) {
+					$options['hide_am_notices'] = 0;
+				}
 			} elseif ( 'frontend' == $who ) {
 				$options['frontend_item_reports'] = 0;
 				if ( empty( $new_options['access_front'] ) ) {
@@ -64,6 +70,7 @@ final class GADWP_Settings {
 				}
 			} elseif ( 'general' == $who ) {
 				$options['user_api'] = 0;
+				$options['usage_tracking'] = 0;
 				if ( ! is_multisite() ) {
 					$options['automatic_updates_minorversion'] = 0;
 				}
@@ -73,7 +80,13 @@ final class GADWP_Settings {
 				$options['superadmin_tracking'] = 0;
 				$options['automatic_updates_minorversion'] = 0;
 				$network_settings = true;
+				$options['network_hide_am_notices'] = 0;
 			}
+			if  ( ! $network_settings && 'general' == $who ) {
+				$usage_tracking = isset( $_POST['usage_tracking'] ) ? (int) $_POST['usage_tracking'] : 0;
+				do_action( 'exactmetrics_settings_usage_tracking', $usage_tracking );
+			}
+
 			$options = array_merge( $options, $new_options );
 			$gadwp->config->options = $options;
 			$gadwp->config->set_plugin_options( $network_settings );
@@ -339,6 +352,28 @@ final class GADWP_Settings {
 									<hr>
 								</td>
 							</tr>
+							<?php if ( ! is_multisite()) :?>
+							<tr>
+							<td colspan="2"><?php echo "<h2>" . __( "Hide Announcements", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gadwp-settings-title">
+									<div class="button-primary gadwp-settings-switchoo">
+										<input type="checkbox" name="options[hide_am_notices]" value="1" class="gadwp-settings-switchoo-checkbox" id="hide_am_notices" <?php checked( $options['hide_am_notices'], 1 ); ?>>
+										<label class="gadwp-settings-switchoo-label" for="hide_am_notices">
+											<div class="gadwp-settings-switchoo-inner"></div>
+											<div class="gadwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php echo esc_html__( 'Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes.' ); ?></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+							<?php endif; ?>
 							<tr>
 								<td colspan="2" class="submit">
 									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-dashboard-for-wp' ) ?>" />
@@ -387,7 +422,7 @@ final class GADWP_Settings {
 						<?php if ( 'universal' == $options['tracking_type'] ) :?>
 						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'events' => __( "Events Tracking", 'google-analytics-dashboard-for-wp' ), 'custom' => __( "Custom Definitions", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'advanced' => __( "Advanced Settings", 'google-analytics-dashboard-for-wp' ), 'integration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
 						<?php elseif ( 'tagmanager' == $options['tracking_type'] ) :?>
-						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'tmintegration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
+						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'tmadvanced' =>  __( "Advanced Settings", 'google-analytics-dashboard-for-wp' ), 'tmintegration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
 						<?php else :?>
 						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ) );?>
 						<?php endif; ?>
@@ -419,6 +454,18 @@ final class GADWP_Settings {
 									<td>
 										<?php $profile_info = GADWP_Tools::get_selected_profile($gadwp->config->options['ga_profiles_list'], $gadwp->config->options['tableid_jail']); ?>
 										<?php echo '<pre>' . __("View Name:", 'google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="gadwp-settings-title">
+										<div class="button-primary gadwp-settings-switchoo">
+											<input type="checkbox" name="options[ga_with_gtag]" value="1" class="gadwp-settings-switchoo-checkbox" id="ga_with_gtag" <?php checked( $options['ga_with_gtag'], 1 ); ?>>
+											<label class="gadwp-settings-switchoo-label" for="ga_with_gtag">
+												<div class="gadwp-settings-switchoo-inner"></div>
+												<div class="gadwp-settings-switchoo-switch"></div>
+											</label>
+										</div>
+										<div class="switch-desc"><?php echo " ".__("use global site tag gtag.js (not recommended)", 'google-analytics-dashboard-for-wp' );?></div>
 									</td>
 								</tr>
 								<?php elseif ( 'tagmanager' == $options['tracking_type'] ) : ?>
@@ -705,21 +752,6 @@ final class GADWP_Settings {
 										</select>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Page Scrolling Depth Variables", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
-								</tr>
-								<tr>
-									<td colspan="2" class="gadwp-settings-title">
-										<div class="button-primary gadwp-settings-switchoo">
-											<input type="checkbox" name="options[tm_pagescrolldepth_tracking]" value="1" class="gadwp-settings-switchoo-checkbox" id="tm_pagescrolldepth_tracking" <?php checked( $options['tm_pagescrolldepth_tracking'], 1 ); ?>>
-											<label class="gadwp-settings-switchoo-label" for="tm_pagescrolldepth_tracking">
-												<div class="gadwp-settings-switchoo-inner"></div>
-												<div class="gadwp-settings-switchoo-switch"></div>
-											</label>
-										</div>
-										<div class="switch-desc"><?php echo " ".__("enable page scrolling depth variables: ", 'google-analytics-dashboard-for-wp' ) . "<strong>{{event}} = ScrollDistance, {{eventCategory}}, {{eventAction}}, {{eventLabel}}, {{eventValue}}, {{eventNonInteraction}}</strong>"?></div>
-									</td>
-								</tr>
 							</table>
 						</div>
 						<div id="gadwp-advanced">
@@ -834,7 +866,7 @@ final class GADWP_Settings {
 								<tr>
 									<td colspan="2" class="gadwp-settings-title">
 										<div class="button-primary gadwp-settings-switchoo">
-											<input type="checkbox" name="options[ga_force_ssl]" value="1" class="gadwp-settings-switchoo-checkbox" id="ga_force_ssl" <?php checked( $options['ga_force_ssl'], 1 ); ?>>
+											<input type="checkbox" name="options[ga_force_ssl]" value="1" class="gadwp-settings-switchoo-checkbox" id="ga_force_ssl" <?php checked( $options['ga_force_ssl'] || $options['ga_with_gtag'], 1 ); ?>  <?php disabled( $options['ga_with_gtag'], true );?>>
 											<label class="gadwp-settings-switchoo-label" for="ga_force_ssl">
 												<div class="gadwp-settings-switchoo-inner"></div>
 												<div class="gadwp-settings-switchoo-switch"></div>
@@ -920,7 +952,7 @@ final class GADWP_Settings {
 								<tr>
 									<td colspan="2" class="gadwp-settings-title">
 										<div class="button-primary gadwp-settings-switchoo">
-											<input type="checkbox" name="options[amp_tracking_clientidapi]" value="1" class="gadwp-settings-switchoo-checkbox" id="amp_tracking_clientidapi" <?php checked( $options['amp_tracking_clientidapi'], 1 ); ?>>
+											<input type="checkbox" name="options[amp_tracking_clientidapi]" value="1" class="gadwp-settings-switchoo-checkbox" id="amp_tracking_clientidapi" <?php checked( $options['amp_tracking_clientidapi'] && !$options['ga_with_gtag'], 1 ); ?> <?php disabled( $options['ga_with_gtag'], true );?>>
 											<label class="gadwp-settings-switchoo-label" for="amp_tracking_clientidapi">
 												<div class="gadwp-settings-switchoo-inner"></div>
 												<div class="gadwp-settings-switchoo-switch"></div>
@@ -938,10 +970,10 @@ final class GADWP_Settings {
 										</label>
 									</td>
 									<td>
-										<select id="ecommerce_mode" name="options[ecommerce_mode]">
+										<select id="ecommerce_mode" name="options[ecommerce_mode]" <?php disabled( $options['ga_with_gtag'], true );?>>
 											<option value="disabled" <?php selected( $options['ecommerce_mode'], 'disabled' ); ?>><?php _e("Disabled", 'google-analytics-dashboard-for-wp');?></option>
 											<option value="standard" <?php selected( $options['ecommerce_mode'], 'standard' ); ?>><?php _e("Ecommerce Plugin", 'google-analytics-dashboard-for-wp');?></option>
-											<option value="enhanced" <?php selected( $options['ecommerce_mode'], 'enhanced' ); ?>><?php _e("Enhanced Ecommerce Plugin", 'google-analytics-dashboard-for-wp');?></option>
+											<option value="enhanced" <?php selected( $options['ecommerce_mode'], 'enhanced' ); selected( $options['ga_with_gtag'], true );?>><?php _e("Enhanced Ecommerce Plugin", 'google-analytics-dashboard-for-wp');?></option>
 										</select>
 									</td>
 								</tr>
@@ -979,6 +1011,37 @@ final class GADWP_Settings {
 									</td>
 									<td>
 										<input type="text" name="options[optimize_containerid]" value="<?php echo esc_attr($options['optimize_containerid']); ?>" size="15">
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="gadwp-tmadvanced">
+							<table class="gadwp-settings-options">
+								<tr>
+									<td colspan="2"><?php echo "<h2>" . __( "Advanced Tracking", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="gadwp-settings-title">
+										<div class="button-primary gadwp-settings-switchoo">
+											<input type="checkbox" name="options[tm_optout]" value="1" class="gadwp-settings-switchoo-checkbox" id="tm_optout" <?php checked( $options['tm_optout'], 1 ); ?>>
+											<label class="gadwp-settings-switchoo-label" for="tm_optout">
+												<div class="gadwp-settings-switchoo-inner"></div>
+												<div class="gadwp-settings-switchoo-switch"></div>
+											</label>
+										</div>
+										<div class="switch-desc"><?php echo " ".__("enable support for user opt-out", 'google-analytics-dashboard-for-wp' );?></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="gadwp-settings-title">
+										<div class="button-primary gadwp-settings-switchoo">
+											<input type="checkbox" name="options[tm_dnt_optout]" value="1" class="gadwp-settings-switchoo-checkbox" id="tm_dnt_optout" <?php checked( $options['tm_dnt_optout'], 1 ); ?>>
+											<label class="gadwp-settings-switchoo-label" for="tm_dnt_optout">
+												<div class="gadwp-settings-switchoo-inner"></div>
+												<div class="gadwp-settings-switchoo-switch"></div>
+											</label>
+										</div>
+										<div class="switch-desc"> <?php _e( 'exclude tracking for users sending Do Not Track header', 'google-analytics-dashboard-for-wp' ); ?></div>
 									</td>
 								</tr>
 							</table>
@@ -1041,12 +1104,6 @@ final class GADWP_Settings {
 											<tr>
 											<?php endif; ?>
 										<?php endforeach; ?>
-
-
-
-
-
-
 										</table>
 									</td>
 								</tr>
@@ -1182,7 +1239,7 @@ final class GADWP_Settings {
 			return;
 		}
 		$options = self::update_options( 'general' );
-		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gadwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-dashboard-for-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-dashboard-for-wp' ) );
+		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://exactmetrics.com/?utm_source=gadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gadwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-dashboard-for-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-dashboard-for-wp' ) );
 		if ( null === $gadwp->gapi_controller ) {
 			$gadwp->gapi_controller = new GADWP_GAPI_Controller();
 		}
@@ -1201,12 +1258,8 @@ final class GADWP_Settings {
 					$options = self::update_options( 'general' );
 					$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Plugin authorization succeeded.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 					if ( $gadwp->config->options['token'] && $gadwp->gapi_controller->client->getAccessToken() ) {
-						if ( ! empty( $gadwp->config->options['ga_profiles_list'] ) ) {
-							$profiles = $gadwp->config->options['ga_profiles_list'];
-						} else {
-							$profiles = $gadwp->gapi_controller->refresh_profiles();
-						}
-						if ( $profiles ) {
+						$profiles = $gadwp->gapi_controller->refresh_profiles();
+						if ( is_array ( $profiles ) && ! empty( $profiles ) ) {
 							$gadwp->config->options['ga_profiles_list'] = $profiles;
 							if ( ! $gadwp->config->options['tableid_jail'] ) {
 								$profile = GADWP_Tools::guess_default_domain( $profiles );
@@ -1225,7 +1278,7 @@ final class GADWP_Settings {
 				} catch ( Exception $e ) {
 					$timeout = $gadwp->gapi_controller->get_timeouts( 'midnight' );
 					GADWP_Tools::set_error( $e, $timeout );
-					$gadwp->gapi_controller->reset_token( true );
+					$gadwp->gapi_controller->reset_token();
 				}
 			} else {
 				if ( 1 == stripos( 'x' . $_POST['gadwp_access_code'], 'UA-', 1 ) ) {
@@ -1245,7 +1298,7 @@ final class GADWP_Settings {
 		}
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) {
-				$gadwp->gapi_controller->reset_token( true );
+				$gadwp->gapi_controller->reset_token();
 				GADWP_Tools::clear_cache();
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
@@ -1266,6 +1319,8 @@ final class GADWP_Settings {
 					$error_report .= $sep . print_r( GADWP_Tools::get_cache( 'gapi_errors' ), true );
 					$error_report .= $sep . GADWP_Tools::get_cache( 'errors_count' );
 					$error_report .= $sep . $info;
+
+					$error_report = urldecode( $error_report );
 
 					$url = GADWP_ENDPOINT_URL . 'gadwp-report.php';
 					/* @formatter:off */
@@ -1341,7 +1396,7 @@ final class GADWP_Settings {
 												</tr>
 												<tr>
 													<td colspan="2" class="gadwp-settings-info">
-														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gadwp', __("free analytics account", 'google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gadwp', __("video tutorial", 'google-analytics-dashboard-for-wp')));?>
+														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://exactmetrics.com/creating-a-google-analytics-account/?utm_source=gadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gadwp', __("free analytics account", 'google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://exactmetrics.com/?utm_source=gadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gadwp', __("video tutorial", 'google-analytics-dashboard-for-wp')));?>
 													</td>
 												</tr>
 												  <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
@@ -1455,6 +1510,26 @@ final class GADWP_Settings {
 												</tr>
 												<?php endif; ?>
 												<tr>
+												<td colspan="2"><?php echo "<h2>" . __( "Usage Tracking", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+												</tr>
+												<tr>
+													<td colspan="2" class="gadwp-settings-title">
+														<div class="button-primary gadwp-settings-switchoo">
+															<input type="checkbox" name="options[usage_tracking]" value="1" class="gadwp-settings-switchoo-checkbox" id="usage_tracking" <?php checked( $options['usage_tracking'], 1 ); ?>>
+															<label class="gadwp-settings-switchoo-label" for="usage_tracking">
+																<div class="gadwp-settings-switchoo-inner"></div>
+																<div class="gadwp-settings-switchoo-switch"></div>
+															</label>
+														</div>
+														<div class="switch-desc"><?php echo " ". sprintf( esc_html__( 'ExactMetrics would like to %1$scollect some information%2$s to better understand how our users use our plugin to better prioritize features and bugfixes.', 'google-analytics-dashboard-for-wp' ), '<a href="https://exactmetrics.com/usage-tracking/?utm_source=wpdashboard&utm_campaign=usagetracking&utm_medium=plugin" target="_blank">', '</a>' ); ; ?></div>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<hr>
+													</td>
+												</tr>
+												<tr>
 													<td colspan="2" class="submit">
 														<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-dashboard-for-wp' ) ?>" />
 													</td>
@@ -1500,7 +1575,7 @@ final class GADWP_Settings {
 		/*
 		 * Include GAPI
 		 */
-		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-dashboard-for-wp' ) . ' <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gadwp">Library conflicts between WordPress plugins</a></p></div>';
+		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-dashboard-for-wp' ) . ' <a href="https://exactmetrics.com/?utm_source=gadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gadwp">Library conflicts between WordPress plugins</a></p></div>';
 
 		if ( null === $gadwp->gapi_controller ) {
 			$gadwp->gapi_controller = new GADWP_GAPI_Controller();
@@ -1530,12 +1605,8 @@ final class GADWP_Settings {
 						GADWP_Tools::delete_cache( 'gapi_errors' );
 					}
 					if ( $gadwp->config->options['token'] && $gadwp->gapi_controller->client->getAccessToken() ) {
-						if ( ! empty( $gadwp->config->options['ga_profiles_list'] ) ) {
-							$profiles = $gadwp->config->options['ga_profiles_list'];
-						} else {
-							$profiles = $gadwp->gapi_controller->refresh_profiles();
-						}
-						if ( $profiles ) {
+						$profiles = $gadwp->gapi_controller->refresh_profiles();
+						if ( is_array ( $profiles ) && ! empty( $profiles ) ) {
 							$gadwp->config->options['ga_profiles_list'] = $profiles;
 							if ( isset( $gadwp->config->options['tableid_jail'] ) && ! $gadwp->config->options['tableid_jail'] ) {
 								$profile = GADWP_Tools::guess_default_domain( $profiles );
@@ -1554,7 +1625,7 @@ final class GADWP_Settings {
 				} catch ( Exception $e ) {
 					$timeout = $gadwp->gapi_controller->get_timeouts( 'midnight' );
 					GADWP_Tools::set_error( $e, $timeout );
-					$gadwp->gapi_controller->reset_token( true );
+					$gadwp->gapi_controller->reset_token();
 				}
 			} else {
 				if ( 1 == stripos( 'x' . $_POST['gadwp_access_code'], 'UA-', 1 ) ) {
@@ -1599,7 +1670,7 @@ final class GADWP_Settings {
 		}
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['gadwp_security'] ) && wp_verify_nonce( $_POST['gadwp_security'], 'gadwp_form' ) ) {
-				$gadwp->gapi_controller->reset_token( true );
+				$gadwp->gapi_controller->reset_token();
 				GADWP_Tools::clear_cache();
 				$message = "<div class='updated' id='gadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-dashboard-for-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
@@ -1678,7 +1749,7 @@ final class GADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2" class="gadwp-settings-info">
-								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gadwp', __("free analytics account", 'google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gadwp', __("video tutorial", 'google-analytics-dashboard-for-wp')));?>
+								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://exactmetrics.com/creating-a-google-analytics-account/?utm_source=gadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gadwp', __("free analytics account", 'google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://exactmetrics.com/?utm_source=gadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gadwp', __("video tutorial", 'google-analytics-dashboard-for-wp')));?>
 								</td>
 																	</tr>
 								<?php if ( ! $options['token'] || $options['user_api'] ) : ?>
@@ -1776,6 +1847,11 @@ final class GADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2">
+																			<hr>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">
 																			<hr><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
 																	</tr>
 																	<tr>
@@ -1788,6 +1864,26 @@ final class GADWP_Settings {
 																				</label>
 																			</div>
 																			<div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'google-analytics-dashboard-for-wp' );?></div>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">
+																			<hr>
+																		</td>
+																	</tr>
+																	<tr>
+																	<td colspan="2"><?php echo "<h2>" . __( "Hide Announcements", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+																	</tr>
+																	<tr>
+																		<td colspan="2" class="gadwp-settings-title">
+																			<div class="button-primary gadwp-settings-switchoo">
+																				<input type="checkbox" name="options[network_hide_am_notices]" value="1" class="gadwp-settings-switchoo-checkbox" id="network_hide_am_notices" <?php checked( $options['network_hide_am_notices'], 1 ); ?>>
+																				<label class="gadwp-settings-switchoo-label" for="network_hide_am_notices">
+																					<div class="gadwp-settings-switchoo-inner"></div>
+																					<div class="gadwp-settings-switchoo-switch"></div>
+																				</label>
+																			</div>
+																			<div class="switch-desc"><?php echo esc_html__( 'Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes.' ); ?></div>
 																		</td>
 																	</tr>
 																	<tr>
@@ -1846,27 +1942,7 @@ final class GADWP_Settings {
 																<span><?php _e("Setup Tutorial & Demo",'google-analytics-dashboard-for-wp') ?></span>
 															</h3>
 															<div class="inside">
-																<a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gadwp_config&utm_medium=link&utm_content=video&utm_campaign=gadwp" target="_blank"><img src="<?php echo plugins_url( 'images/google-analytics-dashboard.png' , __FILE__ );?>" width="100%" alt="" /></a>
-															</div>
-														</div>
-														<div class="postbox">
-															<h3>
-																<span><?php _e("Stay Updated",'google-analytics-dashboard-for-wp')?></span>
-															</h3>
-															<div class="inside">
-																<div class="gadwp-desc">
-																	<div class="g-ytsubscribe" data-channel="TheDeConf" data-layout="default" data-count="default"></div>
-																</div>
-																<br />
-																<div class="gadwp-desc">
-																	<div class="g-follow" data-annotation="bubble" data-height="24" data-href="//plus.google.com/u/0/114149166432576972465" data-rel="publisher"></div>
-																	<script src="https://apis.google.com/js/platform.js" async defer></script>
-																</div>
-																<br />
-																<div class="gadwp-desc">
-																	<a href="https://twitter.com/deconfcom" class="twitter-follow-button" data-show-screen-name="false"></a>
-																	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-																</div>
+																<a href="https://exactmetrics.com/quick-start-guide/?utm_source=gadwp_config&utm_medium=link&utm_content=video&utm_campaign=gadwp" target="_blank"><img src="<?php echo plugins_url( 'images/google-analytics-dashboard.png' , __FILE__ );?>" width="100%" alt="" /></a>
 															</div>
 														</div>
 														<div class="postbox">
@@ -1875,24 +1951,44 @@ final class GADWP_Settings {
 															</h3>
 															<div class="inside">
 																<div class="gadwp-title">
-																	<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=gadwp_config&utm_medium=link&utm_content=clicky&utm_campaign=gadwp"><img src="<?php echo plugins_url( 'images/clicky.png' , __FILE__ ); ?>" /></a>
+																	<a href="https://exactmetrics.com/quick-start-guide/?utm_source=gadwp_config&utm_medium=link&utm_content=getstarted&utm_campaign=gadwp"><img src="<?php echo plugins_url( 'images/clicky.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="gadwp-desc">
-																	<?php printf(__('%s service with users tracking at IP level.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=gadwp_config&utm_medium=link&utm_content=clicky&utm_campaign=gadwp">%s</a>', __('Web Analytics', 'google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('%s with our quick start guide.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://exactmetrics.com/quick-start-guide/?utm_source=gadwp_config&utm_medium=link&utm_content=getstarted&utm_campaign=gadwp">%s</a>', __('Get started', 'google-analytics-dashboard-for-wp')));?>
 																</div>
 																<br />
 																<div class="gadwp-title">
-																	<a href="https://deconf.com/move-website-https-ssl/?utm_source=gadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=gadwp"><img src="<?php echo plugins_url( 'images/ssl.png' , __FILE__ ); ?>" /></a>
+																	<a href="https://exactmetrics.com/google-analytics-gdpr-and-user-data-privacy-compliance/?utm_source=gadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=gadwp"><img src="<?php echo plugins_url( 'images/ssl.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="gadwp-desc">
-																	<?php printf(__('%s by moving your website to HTTPS/SSL.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://deconf.com/move-website-https-ssl/?utm_source=gadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=gadwp">%s</a>', __('Improve search rankings', 'google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('%s with our guide to what you need to know.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://exactmetrics.com/google-analytics-gdpr-and-user-data-privacy-compliance/?utm_source=gadwp_config&utm_medium=link&utm_content=gdprl&utm_campaign=gadwp">%s</a>', __('Get ready for GDPR', 'google-analytics-dashboard-for-wp')));?>
 																</div>
 																<br />
 																<div class="gadwp-title">
 																	<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-dashboard-for-wp#plugin-info"><img src="<?php echo plugins_url( 'images/star.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="gadwp-desc">
-																	<?php printf(__('Your feedback and review are both important, %s!', 'google-analytics-dashboard-for-wp'), sprintf('<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-dashboard-for-wp#plugin-info">%s</a>', __('rate this plugin', 'google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('Your feedback and review are both important, %s!', 'google-analytics-dashboard-for-wp'), sprintf('<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-dashboard-for-wp/?filter=5">%s</a>', __('rate this plugin', 'google-analytics-dashboard-for-wp')));?>
+																</div>
+															</div>
+														</div>
+														<div class="postbox">
+															<h3>
+																<span><?php _e("Recommended Plugins",'google-analytics-dashboard-for-wp')?></span>
+															</h3>
+															<div class="inside">
+																<div class="gadwp-title">
+																	<a href="https://wpforms.com/?utm_source=gadwp&utm_medium=link&utm_campaign=gadwpsettingspage"><img src="<?php echo plugins_url( 'images/wpforms.png' , __FILE__ ); ?>" /></a>
+																</div>
+																<div class="gadwp-desc">
+																	<?php printf(__('%s the most beginner friendly drag and drop form builder plugin for WordPress.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://wpforms.com/?utm_source=gadwp&utm_medium=link&utm_campaign=gadwpsettingspage">%s</a>', __('WPForms', 'google-analytics-dashboard-for-wp')));?>
+																</div>
+																<br />
+																<div class="gadwp-title">
+																	<a href="https://optinmonster.com/?utm_source=gadwp&utm_medium=link&utm_campaign=gadwpsettingspage"><img src="<?php echo plugins_url( 'images/optinmonster.png' , __FILE__ ); ?>" /></a>
+																</div>
+																<div class="gadwp-desc">
+																	<?php printf(__('%s the best conversion optimization toolkit to boost your subscribers and grow your sales.', 'google-analytics-dashboard-for-wp'), sprintf('<a href="https://optinmonster.com/?utm_source=gadwp&utm_medium=link&utm_campaign=gadwpsettingspage">%s</a>', __('OptinMonster', 'google-analytics-dashboard-for-wp')));?>
 																</div>
 															</div>
 														</div>

@@ -7,7 +7,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 ?>
-<amp-analytics type="googleanalytics" id="gadwp-googleanalytics">
+<amp-analytics config="https://www.googletagmanager.com/amp.json?id=<?php echo $data['containerid']; ?>&gtm.url=SOURCE_URL" data-credentials="include">
 	<script type="application/json">
 <?php echo $data['json']; ?>
 	</script>

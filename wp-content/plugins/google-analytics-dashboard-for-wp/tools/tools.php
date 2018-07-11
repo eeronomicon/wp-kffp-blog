@@ -1,8 +1,8 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
- * Copyright 2013 Alin Marcu
+ * Author: ExactMetrics team
+ * Author URI: https://exactmetrics.com
+ * Copyright 2018 ExactMetrics team
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -234,7 +234,7 @@ if ( ! class_exists( 'GADWP_Tools' ) ) {
 				self::set_cache( 'last_error', date( 'Y-m-d H:i:s' ) . ': ' . esc_html( $e ), $timeout );
 			}
 
-			// Count Errors
+			// Count Errors until midnight
 			$midnight = strtotime( "tomorrow 00:00:00" ); // UTC midnight
 			$midnight = $midnight + 8 * 3600; // UTC 8 AM
 			$tomidnight = $midnight - time();
@@ -277,12 +277,14 @@ if ( ! class_exists( 'GADWP_Tools' ) ) {
 				$info .= 'Other Version: ' . '-' . "\n";
 			}
 
-			/*PHP extensions
-			if ( is_callable( 'get_loaded_extensions' ) ) {
-				$info .= 'Loaded Extensions: ' . implode(', ', get_loaded_extensions()) . "\n";
-			} else {
-				$info .= 'Loaded Extensions: ' . '-' . "\n";
-			}*/
+			/*
+			 * PHP extensions
+			 * if ( is_callable( 'get_loaded_extensions' ) ) {
+			 * $info .= 'Loaded Extensions: ' . implode(', ', get_loaded_extensions()) . "\n";
+			 * } else {
+			 * $info .= 'Loaded Extensions: ' . '-' . "\n";
+			 * }
+			 */
 
 			// cURL Info
 			if ( function_exists( 'curl_version' ) && function_exists( 'curl_exec' ) ) {

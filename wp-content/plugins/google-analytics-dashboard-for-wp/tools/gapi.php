@@ -1,8 +1,8 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
- * Copyright 2013 Alin Marcu
+ * Author: ExactMetrics team
+ * Author URI: https://exactmetrics.com
+ * Copyright 2018 ExactMetrics team
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -290,7 +290,7 @@ if ( ! class_exists( 'GADWP_GAPI_Controller' ) ) {
 		 * @param
 		 *            $all
 		 */
-		public function reset_token( $all = true ) {
+		public function reset_token( $all = false ) {
 			$this->gadwp->config->options['token'] = "";
 			if ( $all ) {
 				$this->gadwp->config->options['tableid_jail'] = "";
