@@ -9,7 +9,7 @@
  * @package    Sucuri
  * @subpackage SucuriScanner
  * @author     Daniel Cid <dcid@sucuri.net>
- * @copyright  2010-2017 Sucuri Inc.
+ * @copyright  2010-2018 Sucuri Inc.
  * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
  * @link       https://wordpress.org/plugins/sucuri-scanner
  */
@@ -38,15 +38,6 @@ function sucuriscan_failed_logins_panel()
         'FailedLogins.PaginationLinks' => '',
         'FailedLogins.PaginationVisibility' => 'hidden',
     );
-
-    if (SucuriScanInterface::checkNonce()) {
-        $blockUsers = SucuriScanRequest::post(':block_user', '_array');
-
-        if (is_array($blockUsers) && !empty($blockUsers)) {
-            SucuriScanBlockedUsers::block($blockUsers);
-            SucuriScanInterface::info('Selected user accounts were blocked');
-        }
-    }
 
     // Define variables for the pagination.
     $page_number = SucuriScanTemplate::pageNumber();

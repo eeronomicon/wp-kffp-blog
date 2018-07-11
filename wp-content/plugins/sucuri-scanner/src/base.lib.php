@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Code related to the sucuriscan.lib.php interface.
+ * Code related to the base.lib.php interface.
  *
  * PHP version 5
  *
@@ -9,7 +9,7 @@
  * @package    Sucuri
  * @subpackage SucuriScanner
  * @author     Daniel Cid <dcid@sucuri.net>
- * @copyright  2010-2017 Sucuri Inc.
+ * @copyright  2010-2018 Sucuri Inc.
  * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
  * @link       https://wordpress.org/plugins/sucuri-scanner
  */
@@ -33,7 +33,7 @@ if (!defined('SUCURISCAN_INIT') || SUCURISCAN_INIT !== true) {
  * @package    Sucuri
  * @subpackage SucuriScanner
  * @author     Daniel Cid <dcid@sucuri.net>
- * @copyright  2010-2017 Sucuri Inc.
+ * @copyright  2010-2018 Sucuri Inc.
  * @license    https://www.gnu.org/licenses/gpl-2.0.txt GPL2
  * @link       https://wordpress.org/plugins/sucuri-scanner
  */
