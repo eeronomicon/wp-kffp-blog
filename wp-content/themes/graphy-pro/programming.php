@@ -10,7 +10,7 @@ get_header(); ?>
   <main id="main" class="site-main" role="main">
     <header class="entry-header">
       <h1 class="entry-title">
-      KFFP Program Schedule
+      Program Schedule
       </h1>
     </header>
 
