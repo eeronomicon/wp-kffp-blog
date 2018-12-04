@@ -59,7 +59,7 @@
 		               ( get_header_image() && 'page' == get_theme_mod( 'graphy_header_display' ) && is_page() ) ||
 		               ( get_header_image() && 'page' != get_theme_mod( 'graphy_header_display' ) && is_home() ) ) : ?>
 		<div id="header-image" class="header-image">
-			<img src="<?php header_image(); ?>" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="">
+			<a href="/donate"><img src="<?php header_image(); ?>" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt=""></a>
 		</div><!-- #header-image -->
 		<?php endif; ?>
 
