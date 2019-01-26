@@ -4,7 +4,7 @@ RewriteBase /
 Options +FollowSymLinks
 
 RewriteRule ^listen$ http://listen.freeformportland.org:8000/stream [L]
-RewriteRule ^apply$ https://docs.google.com/forms/d/e/1FAIpQLSenY6qMZHyxcnminoLQP12QHwFSKcnE0xR9wZgaAY4BJABR6Q/viewform [L,R=301]
+RewriteRule ^apply$ https://goo.gl/forms/1rcRzlMeQehnPlpl1 [L,R=301]
 RewriteRule ^eval$ https://docs.google.com/forms/d/e/1FAIpQLSdDx2NrGe_rUDE16yYImVcssZD-Hicjs3HywRgrdCXRfuthJw/viewform [L,R=301]
 RewriteRule ^wiki$ http://wiki.freeformportland.org [L,R=301]
 RewriteRule ^carts$ https://docs.google.com/forms/d/e/1FAIpQLSeVZXpsqYx5JjE_xv4_Y5M_57eNN_mh_MqoX6a2M39IxBMiJQ/viewform [L,R=301]
