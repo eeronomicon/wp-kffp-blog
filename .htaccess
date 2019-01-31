@@ -4,6 +4,7 @@ RewriteBase /
 Options +FollowSymLinks
 
 RewriteRule ^listen$ http://listen.freeformportland.org:8000/stream [L]
+RewriteRule ^blog$ https://blog.freeformportland.org [L,R=301]
 RewriteRule ^apply$ https://goo.gl/forms/1rcRzlMeQehnPlpl1 [L,R=301]
 RewriteRule ^eval$ https://docs.google.com/forms/d/e/1FAIpQLSdDx2NrGe_rUDE16yYImVcssZD-Hicjs3HywRgrdCXRfuthJw/viewform [L,R=301]
 RewriteRule ^wiki$ http://wiki.freeformportland.org [L,R=301]
